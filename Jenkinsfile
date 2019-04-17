@@ -19,5 +19,14 @@ pipeline {
                 git credentialsId: 'git-repo-creds', url: 'git@github.com:mibradl/apache.git'
             }
         }
+        stage('Install Ruby') {
+            steps {
+                sh 'sudo usermod -aG root,docker tomcat'
+                sh 'sudo apt-get install rubygems -y'
+                sh 'sudo apt-get install ruby-dev -y'
+                sh 'sudo gem install bundler -v 2.0.1 --no-doc'
+                sh 'bundle install'
+            }
+        }
     }
 }
