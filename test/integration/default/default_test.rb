@@ -13,9 +13,9 @@ describe package('apache2') do
   it{should be_installed}
 end
 
-describe fiel('/var/www/html/index.html') do
+describe file('/var/www/html/index.html') do
   it{should exist}
-  its('content'){should match(/Hello Pipleline World!/}
+  its('content'){should match(/Hello Pipeline World!/)}
 end
 
 describe upstart_service('apache2') do
