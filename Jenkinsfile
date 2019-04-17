@@ -14,9 +14,9 @@ pipeline {
                 sh 'sudo dpkg -i chefdk_3.9.0-1_amd64.deb'
             }
         }
-        stage('Third Stage') {
+        stage('Download Apache Cookbook') {
             steps {
-                echo "Third Stage"
+                "git credentialsId: 'git-repo-creds', url: 'git@github.com:mibradl/apache.git'"
             }
         }
     }
