@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Download Apache Cookbook') {
             steps {
-                "git credentialsId: 'git-repo-creds', url: 'git@github.com:mibradl/apache.git'"
+                git credentialsId: 'git-repo-creds', url: 'git@github.com:mibradl/apache.git'
             }
         }
     }
