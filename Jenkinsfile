@@ -40,5 +40,16 @@ pipeline {
                 sh 'sudo kitchen test'
             }
         }
+        stage('Wait for input') {
+            steps {
+                input 'Please approve or deny this build'
+            }
+        }
+        stage('Send Slack Notification') {
+            steps {
+                slackSend color: 'slackSend color: "#439FE0"', message: '"Student-4:
+                Please approve ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.JOB_URL} | Open>)"'
+            }
+        }
     }
 }
