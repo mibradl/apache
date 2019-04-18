@@ -51,11 +51,11 @@ pipeline {
         }
 post {
     success {
-        Create slack message here to say "Build $BUILD $JOB_NAME $BUILD_NUMBER Successful!"
+        slackSend message: "Build $BUILD $JOB_NAME $BUILD_NUMBER Successful!"
   }
   failure {
       echo "Build Failed"
-      mail body: "Build ${env.JOB_NAME} ${env.BUILD_NUMBER} failed. Please check the build at ${env.JOB_URL}", from: 'admin@myclass', subject: "Build Failure', to: 'mibradl@hotmail.com'"
+      slackSend message: mail body: "Build ${env.JOB_NAME} ${env.BUILD_NUMBER} failed. Please check the build at ${env.JOB_URL}", from: 'admin@myclass', subject: "Build Failure', to: 'mibradl@hotmail.com'"
 }
   }
   }
