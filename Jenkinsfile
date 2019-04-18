@@ -3,8 +3,7 @@ pipeline {
     stages {
         stage('Delete the workspace') {
             steps {
-                sh "cd $WORKSPACE"
-                deleteDir()
+              sh 'pwd'
             }
         }
         stage('Installing ChefDK') {
