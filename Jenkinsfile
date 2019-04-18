@@ -55,8 +55,7 @@ post {
   }
   failure {
       echo "Build Failed"
-      mail body: "Build ${env.JOB_NAME} ${env.BUILD_NUMBER} failed. Please check the build at ${env.JOB_URL}", from: 'admin@myclass', subject: "Build
-      Failure', to: 'mibradl@hotmail.com'"
+      mail body: "Build ${env.JOB_NAME} ${env.BUILD_NUMBER} failed. Please check the build at ${env.JOB_URL}", from: 'admin@myclass', subject: "Build Failure', to: 'mibradl@hotmail.com'"
 }
   }
   }
