@@ -49,15 +49,5 @@ pipeline {
                 input 'Please approve or deny this build'
             }
         }
-        stage('Upload to Chef, Converge Nodes') {
-            steps {
-            withCredentials([zip(credentialsId: 'chef-started.zip', variable: 'CHEFREPO')]) {
-                sh "mkdir -p $CHEFREPO/chef-repo/apache"
-                sh "mv  $WORKSPACE/* $CHEFREPO/chef-repo/cookbooks/apache"
-                sh "sudo rm -rf $CHEFREPO/chef-repo/cookbooks/apache/Berksfile.lock"
-                sh "knife cookbook upload apache --force -o $CHEFREPO/chef-repo/cookbooks -c $CHEFREPO/chef-repo/.chef/knife.rb"
-                }
-            }
-        }
     }
 }
