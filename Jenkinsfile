@@ -51,8 +51,7 @@ pipeline {
         }
 post {
     success {
-        Create slack message here to say "Build $BUILD $JOB_NAME $BUILD_NUMBER
-Successful"
+        Create slack message here to say "Build $BUILD $JOB_NAME $BUILD_NUMBER Successful!"
   }
   failure {
       echo "Build Failed"
