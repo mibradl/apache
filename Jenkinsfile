@@ -40,15 +40,25 @@ pipeline {
                 sh 'sudo kitchen test'
             }
         }
+        stage('Send Slack Notification') {
+            steps {
+                slackSend color: 'slackSend color: "#439FE0"', message: '"student-4:
+                Please approve ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.JOB_URL} | Open>)"'
+            }
+        }
         stage('Wait for input') {
             steps {
                 input 'Please approve or deny this build'
             }
         }
-        stage('Send Slack Notification') {
+        stage('Upload to Chef, Converge Nodes') {
             steps {
-                slackSend color: 'slackSend color: "#439FE0"', message: '"Student-4:
-                Please approve ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.JOB_URL} | Open>)"'
+            withCredentials([zip(credentialsId: 'chef-started.zip', variable: 'CHEFREPO')]) {
+                sh "mkdir -p $CHEFREPO/chef-repo/apache"
+                sh "mv  $WORKSPACE/* $CHEFREPO/chef-repo/cookbooks/apache"
+                sh "sudo rm -rf $CHEFREPO/chef-repo/cookbooks/apache/Berksfile.lock"
+                sh "knife cookbook upload apache --force -o $CHEFREPO/chef-repo/cookbooks -c $CHEFREPO/chef-repo/.chef/knife.rb"
+                }
             }
         }
     }
