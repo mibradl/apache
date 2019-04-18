@@ -41,7 +41,7 @@ pipeline {
         }
         stage('Send Slack Notification') {
             steps {
-                slackSend color: 'slackSend color: "#439FE0"', message: '"student-4:Please approve ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.JOB_URL} | Open>)"'
+                slackSend color: 'slackSend color: "#439FE0"', message: "student-4:Please approve ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.JOB_URL} | Open>)"
             }
         }
         stage('Wait for input') {
