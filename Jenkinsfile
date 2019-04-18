@@ -28,7 +28,7 @@ pipeline {
         stage('Install Ruby') {
             steps {
                 sh 'sudo usermod -aG root,docker tomcat'
-                sh 'sudo apt-get install rubygems -y'
+                sh 'sudo yum install rubygems -y'
                 sh 'sudo apt-get install ruby-dev -y'
                 sh 'sudo gem install bundler -v 2.0.1 --no-doc'
                 sh 'bundle install'
@@ -49,5 +49,16 @@ pipeline {
                 input 'Please approve or deny this build'
             }
         }
-    }
+post {
+    success {
+        Create slack message here to say "Build $BUILD $JOB_NAME $BUILD_NUMBER
+Successful"
+  }
+  failure {
+      echo "Build Failed"
+      mail body: "Build ${env.JOB_NAME} ${env.BUILD_NUMBER} failed. Please check the build at ${env.JOB_URL}", from: 'admin@myclass', subject: 'Build
+      Failure', to: 'mibradl@hotmail.com'
+}
+  }
+  }
 }
